@@ -1,0 +1,27 @@
+{% extends 'base.html'%} {% block content %}
+<h1>Event Details</h1>
+
+<div class="card" style="width: 18rem">
+  {% if event.image %}
+  <img src="{{ event.image.url }}" class="card-img-top" alt="event image" />
+
+  {% else %}
+  <div class="card-body">
+    <h5 class="card-title text-muted">No Image Available</h5>
+  </div>
+  {% endif %}
+
+  <div class="card-body">
+    <h5 class="card-title">{{ event.title }}</h5>
+    <p class="card-text">{{ event.description }}</p>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">{{ event.date}}</li>
+    <li class="list-group-item">{{ event.time }}</li>
+    <li class="list-group-item">{{ event.category }}</li>
+    <li class="list-group-item">{{ event.location }}</li>
+  </ul>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html'%} 
+{% block content %}
+<h1>My Events</h1>
+<a href="{% url 'add_event' %}">➕ Add New Event</a>
+<div>
+  {% if events %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Event Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Location</th>
+        <th scope="col">Category</th>
+        <th scope="col">Organizer</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for event in events %}
+      <tr>
+        <td><a class="btn btn-success" href="{% url 'my_events_view' event.pk%}">{{ event.title }}</a></td>
+        <td>{{ event.description }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.time }}</td>
+        <td>{{ event.location }}</td>
+        <td>{{ event.category }}</td>
+        <td>{{ event.organizer.username }}</td>
+
+        {% if event.organizer == request.user %}
+     <td>
+             <a class="btn btn-info" href="{% url 'event_edit' event.pk%}">Edit</a> |
+             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal"> Delete</button>
+      </td>
+        {% else %}
+        <td>
+          <span class="text-muted">No actions available</span>
+        </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="text-muted">No events found.</p>
+  {% endif %}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the event <strong>{{ event.title }}</strong>?</p>
+                    <p>This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="">
+                    <button type="submit" class="btn btn-danger">Yes Delete</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,191 @@
+
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}Create Event - Event Management System{% endblock %}
+
+{% block content %}
+<div class="event-form-container">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="form-card">
+                    <div class="form-header">
+                        <h1>Create New Event</h1>
+                        <p>Fill in the details below to create your event</p>
+                    </div>
+                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="success-message">
+                                <i class="fas fa-check-circle me-2"></i>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        
+                        <!-- Title Field -->
+                        <div class="form-group">
+                            <label for="{{ form.title.id_for_label }}" class="form-label">
+                                <i class="fas fa-calendar-alt me-2"></i>Event Title
+                            </label>
+                            {{ form.title|add_class:"form-control" }}
+                            {% if form.title.errors %}
+                                {% for error in form.title.errors %}
+                                    <span class="error-message">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Description Field -->
+                        <div class="form-group">
+                            <label for="{{ form.description.id_for_label }}" class="form-label">
+                                <i class="fas fa-align-left me-2"></i>Description
+                            </label>
+                            {{ form.description|add_class:"form-control" }}
+                            {% if form.description.errors %}
+                                {% for error in form.description.errors %}
+                                    <span class="error-message">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Category and Location Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="{{ form.category.id_for_label }}" class="form-label">
+                                    <i class="fas fa-tags me-2"></i>Category
+                                </label>
+                                {{ form.category|add_class:"form-select" }}
+                                {% if form.category.errors %}
+                                    {% for error in form.category.errors %}
+                                        <span class="error-message">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.location.id_for_label }}" class="form-label">
+                                    <i class="fas fa-map-marker-alt me-2"></i>Location
+                                </label>
+                                {{ form.location|add_class:"form-control" }}
+                                {% if form.location.errors %}
+                                    {% for error in form.location.errors %}
+                                        <span class="error-message">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Date and Time Row -->
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="{{ form.date.id_for_label }}" class="form-label">
+                                    <i class="fas fa-calendar me-2"></i>Date
+                                </label>
+                                {{ form.date|add_class:"form-control" }}
+                                {% if form.date.errors %}
+                                    {% for error in form.date.errors %}
+                                        <span class="error-message">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="{{ form.time.id_for_label }}" class="form-label">
+                                    <i class="fas fa-clock me-2"></i>Time
+                                </label>
+                                {{ form.time|add_class:"form-control" }}
+                                {% if form.time.errors %}
+                                    {% for error in form.time.errors %}
+                                        <span class="error-message">{{ error }}</span>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Image Upload Field -->
+                        <div class="form-group">
+                            <label for="{{ form.image.id_for_label }}" class="form-label">
+                                <i class="fas fa-image me-2"></i>Event Image
+                            </label>
+                            <div class="file-input-wrapper">
+                                {{ form.image }}
+                                <label for="{{ form.image.id_for_label }}" class="file-input-label">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <small class="d-block mt-1">Supported formats: JPG, PNG, GIF (Max 5MB)</small>
+                                </label>
+                            </div>
+                            {% if form.image.errors %}
+                                {% for error in form.image.errors %}
+                                    <span class="error-message">{{ error }}</span>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-create">
+                                <i class="fas fa-plus-circle me-2"></i>Create Event
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <div class="text-center mt-3">
+                        <a href="{% url 'event_list' %}" class="text-decoration-none text-muted">
+                            <i class="fas fa-arrow-left me-1"></i>Back to Events List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // File input enhancement
+    const fileInput = document.querySelector('input[type="file"]');
+    const fileLabel = document.querySelector('.file-input-label span');
+    
+    if (fileInput && fileLabel) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                fileLabel.textContent = `Selected: ${this.files[0].name}`;
+            } else {
+                fileLabel.textContent = 'Click to upload event image';
+            }
+        });
+    }
+    
+    // Form validation enhancement
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            if (!isValid) {
+                e.preventDefault();
+                // Scroll to first error
+                const firstError = form.querySelector('.is-invalid');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
