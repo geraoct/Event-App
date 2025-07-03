@@ -81,7 +81,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "event_db",
         "USER": "root",
-        "PASSWORD": "1234",
+        "PASSWORD": "!t4L3e57",
         "HOST": "localhost",
         "PORT": "3306",
     }
