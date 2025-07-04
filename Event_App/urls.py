@@ -15,5 +15,5 @@ urlpatterns=[
     path('Edit_Event/<int:event_id>/', views.edit_event_view, name='event_edit'),
     path('Events_Detail/<int:event_id>/', views.events_view, name='my_events_view'),
     path('Upcoming_Events/', views.upcoming_events_view, name='upcoming_events'),
-
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -109,5 +109,8 @@ def upcoming_events_view(request):
     events = Event.objects.filter(date__gte=datetime.now()).order_by('date')
     return render(request, 'Events/Upcoming.html', {'events': events})
 
+    
+    
+
 
 
