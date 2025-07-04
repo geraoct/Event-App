@@ -2,9 +2,10 @@
 {% block content %}
 <h1>My Events</h1>
 <a href="{% url 'add_event' %}">➕ Add New Event</a>
-<div>
+<div class="container mt-2 ">
   {% if events %}
-  <table class="table">
+  <table class="table table-hover table-striped align-middle table-responsive">
+
     <thead>
       <tr>
         <th scope="col">Event Name</th>
@@ -20,7 +21,7 @@
     <tbody>
       {% for event in events %}
       <tr>
-        <td><a class="btn btn-success" href="{% url 'my_events_view' event.pk%}">{{ event.title }}</a></td>
+        <td><a class="btn btn-outline-secondary " href="{% url 'my_events_view' event.pk%}">{{ event.title }}</a></td>
         <td>{{ event.description }}</td>
         <td>{{ event.date }}</td>
         <td>{{ event.time }}</td>
