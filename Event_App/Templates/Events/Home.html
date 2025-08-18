@@ -1,15 +1,114 @@
-{% extends 'base.html'%}
-{% load static %}
+{% extends 'base.html'%} {% load static %} {% block content %}
+<div class="home bg-transparent" style="min-height: 85vh">
+  <div class="container">
+  <!-- Page Title -->
+  <div class="text-center p-4 mb-3 d-flex flex-column align-items-center">
+    <h1 class="fw-bold">Welcome to Our Event Management System</h1>
+    
 
-{% block content %}
-<h1 class="text text-center gap-2">Welcome to the event management system</h1>
-<div id="home" class="container d-grid gap-2 col-6 mx-auto">
-    <img src="{% static 'images/bg1.jpg' %}" class="img-fluid" alt="Event Image"
-         style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
-    <a class="btn " href="{% url 'login' %}">Login</a>
-    <a class="btn " href="{% url 'register' %}">Register</a>
+    <!-- Login/Register Section -->
+  <div class="col-md-4 p-4">
+    <div class="p-4 rounded text-center bg-transparent">
+      <a href="{% url 'login' %}" class="btn btn-outline-dark btn-block mb-3 w-100"
+        >Login</a
+      >
+      <a
+        href="{% url 'register' %}"
+        class="btn btn-outline-dark btn-block w-100"
+        >Register</a
+      >
+    </div>
+  </div>
+  </div>
 
+  <!-- Section 1: Who We Are -->
+  <div class="row align-items-center">
+    <div class="col-md-6  "style="padding-left: 140px;">
+      <img
+        src="{% static '/images/features4.jpg'  %}"
+        alt="Who We Are"
+        class="img-fluid rounded shadow "
+        style="max-height: 350px;min-width: 200px;"
+
+
+      />
+    </div>
+    <div class="col-md-6">
+      <h2>Who We Are</h2>
+      <p style="max-width: 50ch;">
+        Event Management is built by a team of passionate event planners,
+        developers, and designers with one goal in mind: to simplify how events
+        are organized. Whether you're planning a small meetup or a large
+        conference, our tools scale with you.
+      </p>
+    </div>
+  </div>
+
+  <!-- Section 2: Our Mission -->
+  <div class="row align-items-center mb-5 flex-md-row-reverse">
+    <div class="col-md-6">
+      <img
+        src="{% static '/images/features5.jpg'  %}"
+        alt="Our Mission"
+        class="img-fluid rounded shadow"
+        style="max-height: 350px;min-width: 150px;"
+      />
+    </div>
+    <div class="col-md-6" style="padding-left: 152px;">
+      <h2>Our Mission</h2>
+      <p style="max-width: 50ch;">
+        Our mission is to empower people and organizations to host unforgettable
+        events with less hassle. We provide modern, intuitive tools that
+        streamline the entire process — from planning to reporting.
+      </p>
+    </div>
+  </div>
+
+
+  <section class="container">
+    <!-- Features Section -->
+    <div class="mt-3">
+      <h2 class="text-center mb-4">Key Features</h2>
+      <div class="row text-center">
+        <!-- Feature 1 -->
+        <div class="col-md-4 mb-4">
+          <div class="p-4 border rounded shadow-sm h-100">
+            <i class="bi bi-calendar-event fs-1 text-primary mb-3"></i>
+            <h5>Easy Event Scheduling</h5>
+            <p>
+              Create and schedule events effortlessly with our intuitive
+              dashboard.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="col-md-4 mb-4">
+          <div class="p-4 border rounded shadow-sm h-100">
+            <i class="bi bi-people fs-1 text-success mb-3"></i>
+            <h5>Participant Management</h5>
+            <p>
+              Track registrations, manage attendees, and communicate
+              effectively.
+            </p>
+          </div>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="col-md-4 mb-4">
+          <div class="p-4 border rounded shadow-sm h-100">
+            <i class="bi bi-graph-up-arrow fs-1 text-warning mb-3"></i>
+            <h5>Analytics & Reports</h5>
+            <p>
+              View event performance, download reports, and gain valuable
+              insights.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
-
+</div>
 
 {%endblock%}

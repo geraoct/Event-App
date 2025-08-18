@@ -16,20 +16,21 @@
   </head>
   <body>
     {% include 'Partials/navbar.html' %}
-    <!-- Content goes here -->
-    <div class="container mt-5">{% block content %} {% endblock %}</div>
+    <main class="home bg-transparent">
+       <!-- Content goes here -->
+    {% block content %} {% endblock %}
 
-    <script
+  
+    </main>  
+ <footer>
+     <div class="footer text-muted text-center " >
+      ©Malethabo Event App
+     </div>
+  </footer>
+  <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
       crossorigin="anonymous"
     ></script>
-
-  <footer>
-     <div class="footer text-muted text-center " >
-      © 2023 Event App
-     </div>
-  </footer>  
- 
   </body>
 </html>

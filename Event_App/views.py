@@ -7,6 +7,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import EventForm
 from .models import Event
 from datetime import datetime
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -29,14 +30,16 @@ def register(request):
     return render(request, 'Events/Register.html', {'form': form})
 
 def login_view(request):
+    print("Login view accessed")
     if request.method == 'POST':
 
         username = request.POST['username']
         password = request.POST['password']
         
         user = authenticate(username=username, password=password)
-        if user is not None:
+        if user:
             login(request, user)
+            print(f"User {user.username} logged in successfully.")
             messages.success(request, 'Login successful!')
             return redirect('event_list')
         else:
@@ -91,15 +94,18 @@ def edit_event_view(request, event_id):
 @login_required
 def delete_event_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
+    print(event.title)
     if event.organizer != request.user:
         messages.error(request, 'You do not have permission to delete this event.')
         return redirect('event_list')
     if request.method == 'POST':
+        print('It does working')
         event.delete()
         messages.success(request, 'Event deleted successfully!')
         return redirect('event_list')
-    return render(request, 'Events/Delete_Event.html', {'event': event})
-
+    else:
+        return redirect('event_list')
+    
 def events_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
    
@@ -107,10 +113,12 @@ def events_view(request, event_id):
 
 def upcoming_events_view(request):
     events = Event.objects.filter(date__gte=datetime.now()).order_by('date')
+    paginator = Paginator(events, 8)  # Show 5 events per page
+    page_number = request.GET.get('page')
+    events = paginator.get_page(page_number)
     return render(request, 'Events/Upcoming.html', {'events': events})
 
-    
-    
+
 
 
 

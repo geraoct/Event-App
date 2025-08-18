@@ -9,14 +9,14 @@
         
         {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{% url 'event_list'%}">Home</a>
+          <a class="nav-link active" aria-current="page" href="{% url 'home'%}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'add_event' %}">Add Events</a>
         </li>
 
          <li class="nav-item">
-          <a class="nav-link" href="{% url 'event_list' %}">My Event</a>
+          <a class="nav-link" href="{% url 'event_list' %}">My Events</a>
         </li>
          <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
@@ -26,7 +26,7 @@
             Dropdown
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">My Events</a></li>
+            <li><a class="dropdown-item" href="{% url 'upcoming_events' %}">Upcoming Events</a></li>
             <li><a class="dropdown-item" href="#">Add Events</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
@@ -42,10 +42,36 @@
         
         {% endif %}
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+       <div class="ms-auto">
+        {% if user.is_authenticated%}
+        <div class="dropdown text-end">
+          <a
+            href="#"
+            class="d-flex justify-content-center align-items-center gap-1 link-dark text-decoration-none dropdown-toggle"
+            id="userDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <div class="user-circle">{{ user.username|slice:":1"|upper }}</div>
+            <small class="username-text">{{ user.username }}</small>
+             <ul class="dropdown-menu text-small" aria-labelledby="userDropdown">
+            <li>
+              <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            </li>
+          </ul>
+          </a>
+          
+        </div>
+
+        {% else %}
+{% if request.resolver_match.url_name != 'home' and request.resolver_match.url_name != 'login' %}
+  <div class="d-flex gap-1">
+    <a class="fw-bold text-dark text-decoration-none" href="{% url 'login' %}" class="nav-link">Login </a> |
+    <a class="fw-bold text-dark text-decoration-none" href="{% url 'register' %}" class="nav-link">Register</a>
+  </div>
+{% endif %}
+{% endif %}
+      </div>
     </div>
   </div>
 </nav>

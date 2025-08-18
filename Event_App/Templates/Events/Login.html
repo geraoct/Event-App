@@ -4,16 +4,16 @@
 {% block content %}
 {% load static %}
 
-<div class="d-flex justify-content-center align-items-center bg-transparent" style="min-height: 70vh;">
+<div class="d-flex justify-content-center align-items-center" style="min-height: 85vh;">
 
-<div class="login-form justify-content-center align-items-center p-5 rounded shadow">
+<div class="login-form d-flex flex-column col-8 bg-transparent align-items-center p-5 rounded shadow">
     <h1 class="text text-center gap-2">LOGIN</h1>
-
 <form method="post">
 {% csrf_token %}
 {{ form.as_p }}
-<button class="btn btn-secondary" type="submit">Login</button>
-<span>I don't have an account<a href="{% url 'register' %}">Register</a></span>
+<button id="login-button" class="btn btn-outline-dark" type="submit">Login</button>
+<span style=>I don't have an account?<a href="{% url 'register' %}" style="color:black;">Register</a></span>
+
 </form>
 
 </div>
